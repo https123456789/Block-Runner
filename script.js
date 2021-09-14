@@ -6,8 +6,7 @@ function animate() {
 		player.jumpFrame();
 	}
 	player.update();
-	/*camera.position.x = Math.sin(angle);
-	angle += 0.1;*/
+	scrollScene();
 	renderer.render( scene, camera );
 }
 // Handles key events
