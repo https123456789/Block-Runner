@@ -61,6 +61,26 @@ function createObject(x, y, z) {
 	}
 }
 
+function buildNewBlock() {
+	var x = objects[-1].x;
+	var y = objects[-1].y;
+	var z = objects[-1].z;
+	z += 20;
+	createObject(x, y, z);
+}
+
+function scrollScene() {
+	for (var i = 0; i < objects.length; i++) {
+		objects[i].z -= 1;
+	}
+	if (objects[0].z < camera.z) {
+		objects.shift();
+	}
+	if (objects[-1].z <= camera.z + 20) {
+		buildNewBlock();
+	}
+}
+
 function lockChangeAlert() {
 	if (document.pointerlockElement == canvas || document.moxpointerlockElement == canvas) {
 		console.log("Pointer lock engaged.");
