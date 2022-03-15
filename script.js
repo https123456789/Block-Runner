@@ -1,3 +1,9 @@
+// Game setup
+function tick() {
+	console.log("tick");
+	scrollScene();
+}
+var ticker = window.setInterval(tick, 1000);
 // Main animation loop
 function animate() {
 	requestAnimationFrame( animate );
@@ -6,7 +12,6 @@ function animate() {
 		player.jumpFrame();
 	}
 	player.update();
-	scrollScene();
 	renderer.render( scene, camera );
 }
 // Handles key events
@@ -61,23 +66,29 @@ function createObject(x, y, z) {
 }
 
 function buildNewBlock() {
-	var x = objects[-1].x;
-	var y = objects[-1].y;
-	var z = objects[-1].z;
+	var x = objects.at(-1).position.x;
+	var y = objects.at(-1).position.y;
+	var z = objects.at(-1).position.z;
 	z += 20;
+	console.log("Attmpting to create object at x:" + x + ", y:" + y + ", z:" + z);
 	createObject(x, y, z);
 }
 
 function scrollScene() {
 	for (var i = 0; i < objects.length; i++) {
-		objects[i].z -= 1;
+		objects[i].position.z += 1;
 	}
-	if (objects[0].z < camera.z) {
+	/*if (objects[0].position.z > camera.position.z) {
+		console.log(objects[0].position.z + " > " + camera.position.z);
+		scene.remove(objects[0]);
 		objects.shift();
+		console.log(objects.length);
 	}
-	if (objects[-1].z <= camera.z + 20) {
+	if (objects.at(-1).position.z <= camera.position.z + 20) {
+		console.log(objects.at(-1).position.z  + " <= " + camera.position.z - 10);
 		buildNewBlock();
-	}
+		console.log(objects.length);
+	}*/
 }
 
 function lockChangeAlert() {
